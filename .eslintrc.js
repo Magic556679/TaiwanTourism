@@ -13,5 +13,10 @@ module.exports = {
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'new-cap': [2, {
+      'newIsCap': false,
+      'capIsNew': false
+    }],
+    'quote-props': [2, 'consistent-as-needed', { 'keywords': true }]
   },
 };
