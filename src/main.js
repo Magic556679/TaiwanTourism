@@ -2,7 +2,6 @@ import { createApp } from 'vue';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 // import jssha from '../node_modules/jssha';
-import 'jssha';
 import App from './App.vue';
 import router from './router';
 

@@ -4,7 +4,7 @@
   </div>
 </template>
 <script>
-// import jsshatest from '../assets/javascript/jssha';
+// import getAuthorizationHeader from '../assets/javascript/jssha';
 import jsSHA from '../../node_modules/jssha';
 
 export default {
@@ -19,14 +19,12 @@ export default {
         const GMTString = new Date().toGMTString();
         const ShaObj = new jsSHA('SHA-1', 'TEXT');
         ShaObj.setHMACKey(AppKey, 'TEXT');
-        // ShaObj.update(`x-date: + ${GMTString}`);
+        ShaObj.update(`x-date: ${GMTString}`);
         const HMAC = ShaObj.getHMAC('B64');
-        const Authorization = `hmac username=\`${AppID}\`, algorithm=\`hmac-sha1\`,headers=\`x-date\`, signature=\`${HMAC}\``;
-        console.log(jsSHA);
-        console.log(Authorization);
-        return { 'Authorization': Authorization, 'X-Date': GMTString };
+        const Authorization = `hmac username=\"${AppID}\", algorithm=\"hmac-sha1\", headers=\"x-date\", signature=\"${HMAC}\"`;
+        return { 'Authorization': Authorization, 'X-Date': GMTString, 'Accept-Encoding': 'gzip' };
       }
-      const url = 'https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot/Taipei?$top=5&$format=JSON';
+      const url = 'https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot/Taipei?$top=1&$format=JSON';
       this.$http.get(url, { headers: getAuthorizationHeader() }).then((res) => {
         console.log(res);
       }).catch(() => {

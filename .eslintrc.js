@@ -17,6 +17,7 @@ module.exports = {
       'newIsCap': false,
       'capIsNew': false
     }],
-    'quote-props': [2, 'consistent-as-needed', { 'keywords': true }]
+    'quote-props': [2, 'consistent-as-needed', { 'keywords': true }],
+    "no-useless-escape":0,
   },
 };
