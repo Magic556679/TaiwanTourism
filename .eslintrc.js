@@ -1,23 +1,23 @@
 module.exports = {
-  root: true,
-  env: {
+  'root': true,
+  'env': {
     node: true,
   },
-  extends: [
+  'extends': [
     'plugin:vue/vue3-essential',
     '@vue/airbnb',
   ],
-  parserOptions: {
+  'parserOptions': {
     parser: 'babel-eslint',
   },
-  rules: {
+  'rules': {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'new-cap': [2, {
-      'newIsCap': false,
-      'capIsNew': false
+      newIsCap: false,
+      capIsNew: false,
     }],
-    'quote-props': [2, 'consistent-as-needed', { 'keywords': true }],
-    "no-useless-escape":0,
+    'quote-props': [2, 'consistent-as-needed', { keywords: true }],
+    'no-useless-escape': 0,
   },
 };

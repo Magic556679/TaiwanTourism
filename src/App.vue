@@ -1,7 +1,10 @@
 <template>
   <div id="nav">
     <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <router-link to="/about">TDX</router-link> ｜
+    <router-link to="/products">路由示範</router-link> |
+    <router-link :to="{ name: 'routerdemo' }">路由示範</router-link> |
+    <router-link to="/product/:id">動態路由 id</router-link>
   </div>
   <router-view />
 </template>

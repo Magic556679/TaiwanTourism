@@ -1,3 +1,3 @@
 module.exports = {
-  publicPath: '/TaiwanTourism/dist'
-}
+  publicPath: '/TaiwanTourism/dist',
+};
