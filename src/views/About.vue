@@ -53,16 +53,22 @@ export default {
     verify() {
       const keywordTxt = this.select;
       if (this.select === '請選擇') {
-        const url = 'https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot?$top=30&$format=JSON';
+        // const url = 'https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot?$top=30&$format=JSON';
+        const url = 'https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot?$filter=Picture%2FPictureUrl1%20ne%20null&$top=20&$format=JSON';
         this.$http.get(url, { headers: this.getAuthorizationHeader() }).then((res) => {
           this.place = res.data;
+          console.log('請選擇');
         }).catch(() => {
           console.log('失敗');
         });
       } else {
-        const url = `https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot?$filter=contains(City,'${keywordTxt}')&$top=10&$format=JSON`;
+        //  $filter=Picture%2FPictureUrl1%20ne%20null
+        const url = `https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot?$filter=contains(City,'${keywordTxt}')&$top=30&$format=JSON`;
         this.$http.get(url, { headers: this.getAuthorizationHeader() }).then((res) => {
           this.place = res.data;
+          // 如果有圖片（Picture.PictureUrl1）的話就顯示
+          const num = this.place.filter((item) => item.Picture.PictureUrl1 !== undefined);
+          this.place = num;
         }).catch(() => {
           console.log('失敗');
         });

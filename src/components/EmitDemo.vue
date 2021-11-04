@@ -13,9 +13,8 @@ export default {
   },
   methods: {
     click() {
-      //  事件名稱,參數
-      this.$emit('EmitClick', this.emitText);
-      console.log(this);
+      this.$emit('EmitClick');
+      console.log('內');
     },
   },
 };

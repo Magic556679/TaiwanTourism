@@ -36,9 +36,9 @@ export default {
     };
   },
   methods: {
-    add(text) {
+    add() {
       this.num += 1;
-      console.log(text);
+      console.log('外');
     },
   },
   components: {
@@ -48,7 +48,7 @@ export default {
     EmitDemo,
   },
   mounted() {
-    console.log(this.$route);
+    console.log(this.$router);
   },
 };
 </script>
