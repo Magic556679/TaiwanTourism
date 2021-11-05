@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d0cefdb"],{"628a":function(o,n,e){"use strict";e.r(n);var t=e("7a23");function c(o,n,e,c,r,s){return Object(t["q"])(),Object(t["e"])("div",null,"撈取路由的 id")}var r={mounted:function(){console.log(this.$route),console.log(this.$route.params.id),console.log(this.$router)}},s=e("d959"),u=e.n(s);const i=u()(r,[["render",c]]);n["default"]=i}}]);
+//# sourceMappingURL=chunk-2d0cefdb.9af57ae5.js.map
