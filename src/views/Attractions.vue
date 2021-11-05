@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <h1>觀迎來到 台灣景點！</h1>
+    <h1>台灣各大景點</h1>
   </div>
   <div class="container">
     <div class="row">
@@ -95,13 +95,13 @@ export default {
           console.log('失敗');
         });
       } else {
-        const url = `https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot?$filter=contains(City,'${keywordTxt}')&$top=100&$format=JSON`;
+        const url = `https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot?$filter=contains(City,'${keywordTxt}')&$format=JSON`;
         this.$http.get(url, { headers: this.getAuthorizationHeader() }).then((res) => {
           this.place = res.data;
           // 如果有圖片（Picture.PictureUrl1）的話就顯示
           // const num = this.place.filter((item) => item.Picture.PictureUrl1 !== undefined);
-          // const num = this.place.filter((item) => item.Picture.PictureUrl1);
-          // this.place = num;
+          const num = this.place.filter((item) => item.Picture.PictureUrl1);
+          this.place = num;
         }).catch(() => {
           console.log('失敗');
         });
