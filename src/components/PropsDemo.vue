@@ -30,6 +30,7 @@ export default {
     // this.newtext = this.text;
     // 傳參考示範
     this.newobj = this.propsobj.name;
+    console.log(this.newobj);
   },
   // mounted() {
   //   console.log(`mounted：${this.propsobj}`);
