@@ -53,7 +53,8 @@
       <pagination :pages="pages" @setpages="getPagesRender"/>
     </div>
     <!-- select render -->
-    <!-- <div class="row mt-5" v-if="this.search == undefined">
+    <!-- <div class="row mt-5" v-if="this.search == undefined"> -->
+    <div class="row mt-5">
         <div class="col-12 col-lg-3" v-for="item in place" :key="item.id">
           <div class="card" style="width: 18rem;">
           <img :src="item.Picture.PictureUrl1" class="card-img-top"
@@ -66,7 +67,7 @@
           </div>
         </div>
       </div>
-    </div> -->
+    </div>
   </div>
 </template>
 <script>
@@ -81,7 +82,6 @@ export default {
       placelenth: 0, //  place陣列長度
       pages: 0, //  當前頁碼
       search: '',
-      text: '測試',
       select: '請選擇',
       city: ['全部', '臺北市', '新北市', '桃園市', '臺中市', '臺南市', '高雄市', '基隆市', '新竹市', '新竹縣', '苗栗縣', '彰化縣', '南投縣', '雲林縣', '嘉義縣', '嘉義市', '屏東縣', '宜蘭縣', '花蓮縣', '臺東縣', '金門縣', '澎湖縣', '連江縣'],
       citydemo: ['全部', '臺北市', '新北市', '臺中市', '臺南市', '高雄市', '新竹縣', '苗栗縣', '彰化縣', '南投縣', '雲林縣', '嘉義縣', '屏東縣', '宜蘭縣', '花蓮縣', '臺東縣', '澎湖縣', '連江縣'],
@@ -134,6 +134,7 @@ export default {
           // if item.Picture.PictureUrl1 == true return
           const num = this.place.filter((item) => item.Picture.PictureUrl1);
           this.place = num;
+          console.log(this.place);
           this.pagination();
         }).catch(() => {
           console.log('失敗');
@@ -143,17 +144,13 @@ export default {
     pagination() {
       this.placelenth = this.place.length;
       const page = 10; //  一個 page 要顯示多少資料
-      // const pageAll = Math.ceil(this.placelenth / page);
-      // console.log(`全部資料共： ${this.placelenth} ,每頁顯示： ${page}筆,總頁數： ${pageAll}頁`);
       this.pages = Math.ceil(this.placelenth / page);
       // console.log(`全部資料共： ${this.placelenth} ,每頁顯示： ${page}筆,總頁數： ${this.pages}頁`);
     },
     getPagesRender(test = 0) {
       const keywordTxt = this.select;
+      const testget = test * 10;
       if (this.select === '請選擇') {
-        console.log(`頁碼：${test}`);
-        const testget = test * 10;
-        console.log(`略過前幾筆：${testget}`);
         const url = `https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot?$filter=Picture%2FPictureUrl1%20ne%20null&$top=${10}&$skip=${testget}&$format=JSON`;
         this.$http.get(url, { headers: this.getAuthorizationHeader() }).then((res) => {
           this.demoplace = res.data;
@@ -162,7 +159,7 @@ export default {
           console.log('失敗');
         });
       } else if (this.select === '全部') {
-        const url = `https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot?$filter=Picture%2FPictureUrl1%20ne%20null&$top=${100}&$format=JSON`;
+        const url = `https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot?$filter=Picture%2FPictureUrl1%20ne%20null&$top=${10}&$format=JSON`;
         this.$http.get(url, { headers: this.getAuthorizationHeader() }).then((res) => {
           this.demoplace = res.data;
           const num = this.demoplace.filter((item) => item.Picture.PictureUrl1);
@@ -172,13 +169,14 @@ export default {
           console.log('失敗');
         });
       } else {
-        const testget = test * 10;
         const url = `https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot?$filter=contains(City,'${keywordTxt}')&$top=${10}&$skip=${testget}&$format=JSON`;
+        // const url = `https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot?$filter=Picture%2FPictureUrl1%20ne%20null&$top=${10}&$skip=${testget}&$format=JSON`;
         this.$http.get(url, { headers: this.getAuthorizationHeader() }).then((res) => {
           this.demoplace = res.data;
-          const num = this.demoplace.filter((item) => item.Picture.PictureUrl1);
-          this.demoplace = num;
+          // const num = this.demoplace.filter((item) => item.Picture.PictureUrl1 !== undefined);
+          console.log(this.demoplace);
           this.pagination();
+          // this.demoplace = num;
         }).catch(() => {
           console.log('失敗');
         });
@@ -196,10 +194,10 @@ export default {
     },
   },
   watch: {
-    select(a, b) {
+    select() {
       this.verify();
       this.getPagesRender();
-      console.log(a, b);
+      // console.log(a, b);
     },
   },
   mounted() {

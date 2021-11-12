@@ -56,7 +56,6 @@ export default {
     // },
     pages() {
       this.getpage = this.pages;
-      // console.log(`watch: ${this.pages}`);
     },
   },
   mounted() {

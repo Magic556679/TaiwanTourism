@@ -1,54 +1,63 @@
 <template>
-  <div class="home">
-    <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-    <!-- 如果元件名稱以駝峰方式命名 放到模板裡要改成小寫連字號 不然容易出問題  -->
-    <div class="mt-3 mb-3">
-      <vuex-demo></vuex-demo>
-    </div>
-    <div class="mt-3 mb-3">
-      <props-demo :propsDemo="text" :text="innertext" :propsobj="obj">123123</props-demo>
-    </div>
-    <button class="mt-2" @click="add"> home.vue add </button>
-    <div class="mt-2">
-      <emit-demo @emit-click="add"></emit-demo>
-    </div>
-    <h3 class="mt-2"> Home.vue 主元件的 data：num {{ num }} </h3>
-  </div>
+  <Navbar></Navbar>
+  <header>
+      <div class="container h-100 text-center">
+        <div class="row h-100">
+          <div class="col-12  d-flex justify-content-center align-items-center">
+            <div>
+              <h1>尋找臺灣</h1>
+              <h2>景點、美食、活動</h2>
+            </div>
+          </div>
+          <div class="col-12 mt-5">
+            <div class="d-flex justify-content-center">
+              <input type="text" placeholder="請輸入關鍵字" class="border-0 rounded-4 p-3">
+              <button type="button" class="btn btn-taifun ms-2 rounded-4 px-4">
+                <i class="fas fa-sliders-h text-white"></i>
+                篩選
+              </button>
+            </div>
+          </div>
+          <div class="col-12 mt-5">
+            <button type="text" class="btn btn-taifun rounded-4 px-5 py-2">搜尋</button>
+          </div>
+        </div>
+      </div>
+  </header>
+  <main>123</main>
+  <Footer></Footer>
+  <router-view></router-view>
 </template>
 
 <script>
-import HelloWorld from '@/components/HelloWorld.vue';
-import VuexDemo from '@/components/VuexDemo.vue';
-import PropsDemo from '@/components/PropsDemo.vue';
-import EmitDemo from '@/components/EmitDemo.vue';
+import Navbar from '@/components/Navbar.vue';
+import Footer from '@/components/Footer.vue';
 
 export default {
   name: 'Home',
   data() {
-    return {
-      text: '我是外部元件傳進來的',
-      num: 0,
-      innertext: '我是外部元件',
-      obj: {
-        name: '傳參考',
-      },
-    };
+    return {};
   },
   methods: {
-    add() {
-      this.num += 1;
-      console.log('外');
-    },
   },
   components: {
-    HelloWorld,
-    VuexDemo,
-    PropsDemo,
-    EmitDemo,
+    Navbar,
+    Footer,
   },
   mounted() {
-    console.log(this.$router);
   },
 };
 </script>
+<style lang="scss" scoped>
+header {
+  margin-top: -138px;
+  padding: 12% 0 5% 0;
+  background-image: url(../assets/images/banner01.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  input {
+    width: 50%;
+  }
+}
+</style>
