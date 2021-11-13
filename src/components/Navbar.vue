@@ -33,7 +33,5 @@
   </nav>
 </template>
 <style lang="scss" scoped>
-// .navbar {
-//   position: fixed;
-// }
+
 </style>

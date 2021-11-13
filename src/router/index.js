@@ -4,11 +4,16 @@ import { createRouter, createWebHashHistory } from 'vue-router';
 // 下面是路由表
 const routes = [
   {
+    // header and footer
     path: '/',
     name: 'Home',
-    // component: Home,
-    component: () => import('../views/Home.vue'),
+    component: () => import('@/views/Home.vue'),
     children: [
+      {
+        // 首頁 熱門景點
+        path: '',
+        component: () => import('@/views/Index.vue'),
+      },
     ],
   },
   {
