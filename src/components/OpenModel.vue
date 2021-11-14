@@ -29,9 +29,9 @@
         <div class="modal-body d-flex justify-content-between">
           <div>
             <h3>東部地區</h3>
-            <select name="全部地區" v-model="select">
-            <option disabled>請選擇</option>
-            <option v-for="item in sortselect" :key="item.id" :value="item">{{ item }}</option>
+            <select name="全部地區" v-model="eastselect">
+            <option disabled>選擇縣市</option>
+            <option v-for="item in modeleast" :key="item.id" :value="item">{{ item }}</option>
             </select>
           </div>
           <div>
@@ -54,7 +54,9 @@
           class="btn btn-secondary"
           data-bs-dismiss="modal">Close</button>
           <button type="button" class="btn btn-primary">Save changes</button> -->
-          <button type="text" class="btn btn-taifun rounded-4 px-5 py-2">搜尋</button>
+          <button type="button"
+          class="btn btn-taifun rounded-4 px-5 py-2"
+          @click="$emit('set-search', select, eastselect, 1)">搜尋</button>
         </div>
       </div>
     </div>
@@ -68,25 +70,45 @@ export default {
     sort: {
       type: Array,
     },
+    east: {
+      type: Array,
+    },
+    west: {
+      type: Array,
+    },
+    south: {
+      type: Array,
+    },
+    north: {
+      type: Array,
+    },
   },
 
   data() {
     return {
-      model: '',
-      select: '請選擇',
+      model: '', // bootstrap 存入點
+      select: '請選擇', // emit select
+      eastselect: '選擇縣市',
       sortselect: '',
+      modeleast: '',
+      modelwest: '',
+      modelsouth: '',
+      modelnorth: '',
     };
   },
   methods: {
     openModel() {
       this.model.show();
     },
-    test() {
-      console.log('this openModel');
-    },
   },
   mounted() {
+    // ['熱門景點', '熱門美食', '熱門住宿']
     this.sortselect = this.sort;
+    // 東西南北
+    this.modeleast = this.east;
+    // this.modelwest = this.west;
+    // this.modelsouth = this.south;
+    // this.modelnorth = this.north;
     //  初始化 model
     this.model = new Modal(this.$refs.modal);
   },
