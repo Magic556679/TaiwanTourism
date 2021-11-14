@@ -105,10 +105,6 @@ export default {
     verify() {
       const keywordTxt = this.select;
       if (this.select === '請選擇') {
-        // 全部資料
-        // const url = `https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot?$filter=Picture%2FPictureUrl1%20ne%20null&$format=JSON`;
-        // 篩選 如果有圖片的話 $filter=Picture%2FPictureUrl1%20ne%20null&
-        // Pagination https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot?$top=${10}&$skip=${3}&$format=JSON
         const url = `https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot?$filter=Picture%2FPictureUrl1%20ne%20null&$top=${30}&$skip=${0}&$format=JSON`;
         this.$http.get(url, { headers: this.getAuthorizationHeader() }).then((res) => {
           this.place = res.data;
@@ -131,7 +127,6 @@ export default {
         const url = `https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot?$filter=contains(City,'${keywordTxt}')&$top=${100}&$format=JSON`;
         this.$http.get(url, { headers: this.getAuthorizationHeader() }).then((res) => {
           this.place = res.data;
-          // if item.Picture.PictureUrl1 == true return
           const num = this.place.filter((item) => item.Picture.PictureUrl1);
           this.place = num;
           console.log(this.place);
@@ -197,16 +192,11 @@ export default {
     select() {
       this.verify();
       this.getPagesRender();
-      // console.log(a, b);
     },
   },
   mounted() {
     this.verify();
     this.getPagesRender();
-    // console.log(document.querySelector('#demo'));
-    // console.log(this);
-    // console.log(this.$refs);
-    // console.log(this.$refs.demo);
   },
 };
 </script>

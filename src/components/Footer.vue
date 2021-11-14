@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid footer">
+  <div class="container-fluid footer mt-5">
     <div class="row">
       <div class="col-12 d-flex justify-content-center text-white bg-taifun">
         <div class="mt-3">

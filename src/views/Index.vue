@@ -25,8 +25,15 @@
   </header>
   <main>
     <div class="container">
-      <div class="row">
-        <div class="col-12 col-lg-3" v-for="item in place" :key="item.id">
+      <!-- 景點 -->
+      <div class="row" v-if="this.sorttext === '請選擇'||this.sorttext === '熱門景點'">
+        <div class="col-12 mt-5">
+          <div class="icon d-flex align-items-center">
+            <h2 class="text-taifun m-0">熱門景點</h2>
+            <img class="ps-4" src="@/assets/images/Attractions.png" alt="">
+          </div>
+        </div>
+        <div class="col-12 col-lg-3" v-for="item in attractionsData" :key="item.id">
           <div class="card mt-5" >
             <img
               :src="item.Picture.PictureUrl1"
@@ -34,10 +41,67 @@
               :alt="item.Picture.PictureDescription1"
             />
             <div class="card-body">
-              <h3 class="card-title">{{ item.City }}</h3>
-              <h5 class="card-title">{{ item.Name }}</h5>
-              <!-- <p class="card-text">{{ item.DescriptionDetail }}</p> -->
-              <a href="#" class="btn btn-primary">Go somewhere</a>
+              <h5 class="card-title">{{ item.City }}</h5>
+              <h3 class="card-title">{{ item.Name }}</h3>
+              <h5>開放時間</h5>
+              <h5 class="card-title">{{ item.OpenTime }}</h5>
+            </div>
+            <div class="mx-auto pb-3">
+              <button type="button" class="btn btn-taifun px-4">查看詳情</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 美食 -->
+      <div class="row" v-else-if="this.sorttext === '熱門美食'">
+        <div class="col-12 mt-5">
+          <div class="icon d-flex align-items-center">
+            <h2 class="text-taifun m-0">熱門美食</h2>
+            <img class="ps-4" src="@/assets/images/delicacy.png" alt="">
+          </div>
+        </div>
+        <div class="col-12 col-lg-3" v-for="item in delicacyData" :key="item.id">
+          <div class="card mt-5" >
+            <img
+              :src="item.Picture.PictureUrl1"
+              class="card-img-top"
+              :alt="item.Picture.PictureDescription1"
+            />
+            <div class="card-body">
+              <h5 class="card-title">{{ item.City }}</h5>
+              <h3 class="card-title">{{ item.Name }}</h3>
+              <h5>開放時間</h5>
+              <h5 class="card-title">{{ item.OpenTime }}</h5>
+            </div>
+            <div class="mx-auto pb-3">
+              <button type="button" class="btn btn-taifun px-4">查看詳情</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 住宿 -->
+      <div class="row" v-else-if="this.sorttext === '熱門住宿'">
+        <div class="col-12 mt-5">
+          <div class="icon d-flex align-items-center">
+            <h2 class="text-taifun m-0">熱門住宿</h2>
+            <img class="ps-4" src="@/assets/images/Activity.png" alt="">
+          </div>
+        </div>
+        <div class="col-12 col-lg-3" v-for="item in stayData" :key="item.id">
+          <div class="card mt-5" >
+            <img
+              :src="item.Picture.PictureUrl1"
+              class="card-img-top"
+              :alt="item.Picture.PictureDescription1"
+            />
+            <div class="card-body">
+              <h5 class="card-title">{{ item.City }}</h5>
+              <h3 class="card-title">{{ item.Name }}</h3>
+              <h5>開放時間</h5>
+              <h5 class="card-title">{{ item.OpenTime }}</h5>
+            </div>
+            <div class="mx-auto pb-3">
+              <button type="button" class="btn btn-taifun px-4">查看詳情</button>
             </div>
           </div>
         </div>
@@ -65,18 +129,23 @@ export default {
   data() {
     return {
       sort: ['熱門景點', '熱門美食', '熱門住宿'], // 分類
-      place: [],
-      demoplace: [],
+      attractionsData: [],
+      delicacyData: [],
+      stayData: [],
       placelenth: 0, //  place陣列長度
       pages: 0, //  當前頁碼
-      search: '',
+      keywordSearch: '',
       select: '請選擇',
       city: ['全部', '臺北市', '新北市', '桃園市', '臺中市', '臺南市', '高雄市', '基隆市', '新竹市', '新竹縣', '苗栗縣', '彰化縣', '南投縣', '雲林縣', '嘉義縣', '嘉義市', '屏東縣', '宜蘭縣', '花蓮縣', '臺東縣', '金門縣', '澎湖縣', '連江縣'],
-      citydemo: ['全部', '臺北市', '新北市', '臺中市', '臺南市', '高雄市', '新竹縣', '苗栗縣', '彰化縣', '南投縣', '雲林縣', '嘉義縣', '屏東縣', '宜蘭縣', '花蓮縣', '臺東縣', '澎湖縣', '連江縣'],
-      east: ['宜蘭縣', '花蓮縣', '臺東縣'],
-      west: ['臺中市', '彰化縣', '南投縣', '雲林縣', '嘉義縣', '嘉義市'],
-      south: ['臺南市', '高雄市', '屏東縣'],
-      north: ['臺北市', '新北市', '桃園市', '基隆市', '新竹市', '新竹縣', '苗栗縣', '彰化縣'],
+      east: ['宜蘭縣', '花蓮縣', '臺東縣'], //  東
+      west: ['臺中市', '彰化縣', '南投縣', '雲林縣', '嘉義縣', '嘉義市'], //  西
+      south: ['臺南市', '高雄市', '屏東縣'], //  南
+      north: ['臺北市', '新北市', '桃園市', '基隆市', '新竹市', '新竹縣', '苗栗縣', '彰化縣'], // 北
+      sorttext: '請選擇',
+      geteast: '',
+      getwest: '',
+      getsouth: '',
+      getnorth: '',
     };
   },
   methods: {
@@ -92,25 +161,201 @@ export default {
       return { 'Authorization': Authorization, 'X-Date': GMTString };
     },
     verify() {
-      // const keywordTxt = this.select;
-      const url = `https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot?$filter=Picture%2FPictureUrl1%20ne%20null&$top=${10}&$format=JSON`;
-      this.$http.get(url, { headers: this.getAuthorizationHeader() }).then((res) => {
-        this.place = res.data;
-        const num = this.place.filter((item) => item.Picture.PictureUrl1);
-        this.place = num;
-      }).catch(() => {
-        console.log('失敗');
-      });
+      const eastCity = this.geteast;
+      const westCity = this.getwest;
+      const southCity = this.getsouth;
+      const northCity = this.getnorth;
+      if (eastCity !== '' && eastCity !== '選擇縣市') {
+        const url = `https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot?$filter=contains(City,'${eastCity}')&$top=${8}&$format=JSON`;
+        this.$http.get(url, { headers: this.getAuthorizationHeader() }).then((res) => {
+          this.attractionsData = res.data;
+          console.log('東部成功');
+          const num = this.attractionsData.filter((item) => item.Picture.PictureUrl1);
+          this.attractionsData = num;
+        }).catch(() => {
+          console.log('失敗');
+        });
+      } else if (westCity !== '' && westCity !== '選擇縣市') {
+        const url = `https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot?$filter=contains(City,'${westCity}')&$top=${8}&$format=JSON`;
+        this.$http.get(url, { headers: this.getAuthorizationHeader() }).then((res) => {
+          this.attractionsData = res.data;
+          const num = this.attractionsData.filter((item) => item.Picture.PictureUrl1);
+          this.attractionsData = num;
+          console.log('西部成功');
+        }).catch(() => {
+          console.log('失敗');
+        });
+      } else if (southCity !== '' && southCity !== '選擇縣市') {
+        const url = `https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot?$filter=contains(City,'${southCity}')&$top=${8}&$format=JSON`;
+        this.$http.get(url, { headers: this.getAuthorizationHeader() }).then((res) => {
+          this.attractionsData = res.data;
+          const num = this.attractionsData.filter((item) => item.Picture.PictureUrl1);
+          this.attractionsData = num;
+          console.log('南部成功');
+        }).catch(() => {
+          console.log('失敗');
+        });
+      } else if (northCity !== '' && northCity !== '選擇縣市') {
+        const url = `https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot?$filter=contains(City,'${northCity}')&$top=${8}&$format=JSON`;
+        this.$http.get(url, { headers: this.getAuthorizationHeader() }).then((res) => {
+          this.attractionsData = res.data;
+          const num = this.attractionsData.filter((item) => item.Picture.PictureUrl1);
+          this.attractionsData = num;
+          console.log('北部成功');
+        }).catch(() => {
+          console.log('失敗');
+        });
+      } else {
+        const url = `https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot?$filter=Picture%2FPictureUrl1%20ne%20null&$top=${8}&$format=JSON`;
+        this.$http.get(url, { headers: this.getAuthorizationHeader() }).then((res) => {
+          this.attractionsData = res.data;
+          const num = this.attractionsData.filter((item) => item.Picture.PictureUrl1);
+          this.attractionsData = num;
+          console.log(this.attractionsData);
+        }).catch(() => {
+          console.log('失敗');
+        });
+      }
+    },
+    delicacy() {
+      const eastCity = this.geteast;
+      const westCity = this.getwest;
+      const southCity = this.getsouth;
+      const northCity = this.getnorth;
+      if (eastCity !== '' && eastCity !== '選擇縣市') {
+        const url = `https://ptx.transportdata.tw/MOTC/v2/Tourism/Restaurant?$filter=contains(City,'${eastCity}')&$top=${8}&$format=JSON`;
+        this.$http.get(url, { headers: this.getAuthorizationHeader() }).then((res) => {
+          this.delicacyData = res.data;
+          console.log('東部成功');
+          const num = this.delicacyData.filter((item) => item.Picture.PictureUrl1);
+          this.delicacyData = num;
+          // console.log(this.geteast, this.getwest, this.getsouth, this.getnorth);
+        }).catch(() => {
+          console.log('失敗');
+        });
+      } else if (westCity !== '' && westCity !== '選擇縣市') {
+        const url = `https://ptx.transportdata.tw/MOTC/v2/Tourism/Restaurant?$filter=contains(City,'${westCity}')&$top=${8}&$format=JSON`;
+        this.$http.get(url, { headers: this.getAuthorizationHeader() }).then((res) => {
+          this.delicacyData = res.data;
+          const num = this.delicacyData.filter((item) => item.Picture.PictureUrl1);
+          this.delicacyData = num;
+          console.log('西部成功');
+        }).catch(() => {
+          console.log('失敗');
+        });
+      } else if (southCity !== '' && southCity !== '選擇縣市') {
+        const url = `https://ptx.transportdata.tw/MOTC/v2/Tourism/Restaurant?$filter=contains(City,'${southCity}')&$top=${8}&$format=JSON`;
+        this.$http.get(url, { headers: this.getAuthorizationHeader() }).then((res) => {
+          this.delicacyData = res.data;
+          const num = this.delicacyData.filter((item) => item.Picture.PictureUrl1);
+          this.delicacyData = num;
+          console.log('南部成功');
+        }).catch(() => {
+          console.log('失敗');
+        });
+      } else if (northCity !== '' && northCity !== '選擇縣市') {
+        const url = `https://ptx.transportdata.tw/MOTC/v2/Tourism/Restaurant?$filter=contains(City,'${northCity}')&$top=${8}&$format=JSON`;
+        this.$http.get(url, { headers: this.getAuthorizationHeader() }).then((res) => {
+          this.delicacyData = res.data;
+          const num = this.delicacyData.filter((item) => item.Picture.PictureUrl1);
+          this.delicacyData = num;
+          console.log('北部成功');
+        }).catch(() => {
+          console.log('失敗');
+        });
+      } else {
+        const url = `https://ptx.transportdata.tw/MOTC/v2/Tourism/Restaurant?$filter=Picture%2FPictureUrl1%20ne%20null&$top=${8}&$format=JSON`;
+        this.$http.get(url, { headers: this.getAuthorizationHeader() }).then((res) => {
+          this.delicacyData = res.data;
+          const num = this.delicacyData.filter((item) => item.Picture.PictureUrl1);
+          this.delicacyData = num;
+        }).catch(() => {
+          console.log('失敗');
+        });
+      }
+    },
+    stay() {
+      const eastCity = this.geteast;
+      const westCity = this.getwest;
+      const southCity = this.getsouth;
+      const northCity = this.getnorth;
+      if (eastCity !== '' && eastCity !== '選擇縣市') {
+        const url = `https://ptx.transportdata.tw/MOTC/v2/Tourism/Hotel?$filter=contains(City,'${eastCity}')&$top=${8}&$format=JSON`;
+        this.$http.get(url, { headers: this.getAuthorizationHeader() }).then((res) => {
+          this.stayData = res.data;
+          console.log('東部成功');
+          const num = this.stayData.filter((item) => item.Picture.PictureUrl1);
+          this.stayData = num;
+          // console.log(this.geteast, this.getwest, this.getsouth, this.getnorth);
+        }).catch(() => {
+          console.log('失敗');
+        });
+      } else if (westCity !== '' && westCity !== '選擇縣市') {
+        const url = `https://ptx.transportdata.tw/MOTC/v2/Tourism/Hotel?$filter=contains(City,'${westCity}')&$top=${8}&$format=JSON`;
+        this.$http.get(url, { headers: this.getAuthorizationHeader() }).then((res) => {
+          this.stayData = res.data;
+          const num = this.stayData.filter((item) => item.Picture.PictureUrl1);
+          this.stayData = num;
+          console.log('西部成功');
+        }).catch(() => {
+          console.log('失敗');
+        });
+      } else if (southCity !== '' && southCity !== '選擇縣市') {
+        const url = `https://ptx.transportdata.tw/MOTC/v2/Tourism/Hotel?$filter=contains(City,'${southCity}')&$top=${8}&$format=JSON`;
+        this.$http.get(url, { headers: this.getAuthorizationHeader() }).then((res) => {
+          this.stayData = res.data;
+          const num = this.stayData.filter((item) => item.Picture.PictureUrl1);
+          this.stayData = num;
+          console.log('南部成功');
+        }).catch(() => {
+          console.log('失敗');
+        });
+      } else if (northCity !== '' && northCity !== '選擇縣市') {
+        const url = `https://ptx.transportdata.tw/MOTC/v2/Tourism/Hotel?$filter=contains(City,'${northCity}')&$top=${8}&$format=JSON`;
+        this.$http.get(url, { headers: this.getAuthorizationHeader() }).then((res) => {
+          this.stayData = res.data;
+          const num = this.stayData.filter((item) => item.Picture.PictureUrl1);
+          this.stayData = num;
+          console.log('北部成功');
+        }).catch(() => {
+          console.log('失敗');
+        });
+      } else {
+        const url = `https://ptx.transportdata.tw/MOTC/v2/Tourism/Hotel?$filter=Picture%2FPictureUrl1%20ne%20null&$top=${8}&$format=JSON`;
+        this.$http.get(url, { headers: this.getAuthorizationHeader() }).then((res) => {
+          this.stayData = res.data;
+          const num = this.stayData.filter((item) => item.Picture.PictureUrl1);
+          this.stayData = num;
+          console.log(this.stayData);
+        }).catch(() => {
+          console.log('失敗');
+        });
+      }
     },
     open() {
       this.$refs.searchOpen.openModel();
     },
-    getSeatch(a, b, c) {
-      console.log(a, b, c);
+    getSeatch(a, b, c, d, e) {
+      console.log(a, b, c, d, e);
+      this.sorttext = a;
+      this.geteast = b;
+      this.getwest = c;
+      this.getsouth = d;
+      this.getnorth = e;
+      this.verify();
+      this.delicacy();
+      this.stay();
+    },
+  },
+  watch: {
+    geteast(n, o) {
+      console.log(n, o);
     },
   },
   mounted() {
     this.verify();
+    this.delicacy();
+    this.stay();
   },
 };
 </script>
@@ -126,10 +371,20 @@ header {
     width: 50%;
   }
 }
+@media screen and (max-width: 414px) {
+    header {
+      padding: 35% 0 5% 0;
+    }
+}
 main {
   img {
     height: 250px;
     object-fit: cover;
+  }
+  .icon {
+    img {
+      height: 35px;
+    }
   }
 }
 </style>
