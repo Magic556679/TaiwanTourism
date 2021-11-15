@@ -8,6 +8,7 @@ export default {
     console.log(this.$route); //  路由屬性
     console.log(this.$route.params.id); // 讀取路由後面的 id
     console.log(this.$router); //  路由方法
+    console.log('123');
   },
 };
 </script>
